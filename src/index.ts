@@ -1,11 +1,11 @@
 import "dotenv/config";
-import fs from "fs";
 import express, { Application } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import { connect } from "mongoose";
 import { errorHandler } from "./utils/error.middleware";
 import { mongoose } from "@typegoose/typegoose";
+import { Routes } from "./routes"
 
 (async () => {
 
@@ -39,7 +39,7 @@ import { mongoose } from "@typegoose/typegoose";
   // const routes = fs.readdirSync("./src/routes");
   // routes.forEach(file => app.use("/api/", require("./routes/" + file)));
 
-  // app.use("/api", mainRoutes);
+  app.use("/api", Routes);
 
   app.use(errorHandler);
 
