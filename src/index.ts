@@ -2,7 +2,6 @@ import "dotenv/config";
 import express, { Application } from "express";
 import cors from "cors";
 import helmet from "helmet";
-import { connect } from "mongoose";
 import { errorHandler } from "./utils/error.middleware";
 import { mongoose } from "@typegoose/typegoose";
 import { Routes } from "./routes"
