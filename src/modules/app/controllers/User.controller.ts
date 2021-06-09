@@ -1,5 +1,5 @@
 import { Response, Request, NextFunction } from "express";
-import { User, UserModel } from "../../../entity/User";
+import { UserModel } from "../../../entity/User";
 
 export const RegisterUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
