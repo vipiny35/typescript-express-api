@@ -34,13 +34,10 @@ import { Routes } from "./routes"
     res.send({ message: 'Success' });
   });
 
-  //Set all routes from routes folder
-  // const routes = fs.readdirSync("./src/routes");
-  // routes.forEach(file => app.use("/api/", require("./routes/" + file)));
+  app.use(errorHandler);
 
   app.use("/api", Routes);
 
-  app.use(errorHandler);
 
   const port = process.env.PORT || 4000;
   try { app.listen(port, () => console.log(`API server started at http://localhost:${port}`)); }
