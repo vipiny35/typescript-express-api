@@ -1,7 +1,7 @@
+import { DateTime } from "luxon";
+import { v4 as uuid } from 'uuid';
 import { default as S3 } from "aws-sdk/clients/s3";
 import { ManagedUpload } from "aws-sdk/lib/s3/managed_upload";
-import moment from "moment";
-import { v4 as uuid } from 'uuid';
 import { extractFileExtention } from "../helpers/file-extension";
 
 export class S3Client {
@@ -30,7 +30,7 @@ export class S3Client {
   }
 
   getLocation(): string {
-    const yearMonthFolder = moment().format('YYYY/MM');
+    const yearMonthFolder = DateTime.now().toFormat('YYYY/MM')
     return `uploads/${yearMonthFolder}`;
   }
 
