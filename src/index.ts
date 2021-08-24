@@ -5,6 +5,7 @@ import helmet from "helmet";
 import { errorHandler } from "./utils/error.middleware";
 import { mongoose } from "@typegoose/typegoose";
 import { Routes } from "./routes"
+import { S3Client } from "./services/aws-s3-client";
 
 (async () => {
 
@@ -37,6 +38,18 @@ import { Routes } from "./routes"
   app.use(errorHandler);
 
   app.use("/api", Routes);
+
+
+  //Common Upload
+  app.get('/api/get-signed-url', async (req, res) => {
+
+    const s3Client = new S3Client()
+    const uploadPromise = await s3Client.getUploadSignedUrl('MicrosoftTeams-image.png');
+    res.send({
+      success: true,
+      data: uploadPromise
+    })
+  })
 
 
   const port = process.env.PORT || 4000;
