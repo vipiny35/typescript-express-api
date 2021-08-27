@@ -5,7 +5,7 @@ import helmet from "helmet";
 import { errorHandler } from "./utils/error.middleware";
 import { mongoose } from "@typegoose/typegoose";
 import { Routes } from "./routes"
-import { S3Clients } from "./services/aws-s3-client";
+import { S3Client } from "./services/aws-s3-client";
 
 (async () => {
 
