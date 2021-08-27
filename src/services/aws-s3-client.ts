@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { v4 as uuid } from 'uuid';
+import { nanoid } from 'nanoid';
 import { default as S3 } from "aws-sdk/clients/s3";
 import { ManagedUpload } from "aws-sdk/lib/s3/managed_upload";
 import { extractFileExtention } from "../helpers/file-extension";
@@ -35,7 +35,7 @@ export class S3Client {
   }
 
   async getUploadSignedUrl(fileName: string) {
-    const fileNamePrefix = uuid();
+    const fileNamePrefix = nanoid(12);
     const extension = extractFileExtention(fileName);
     return await this.client.getSignedUrlPromise('putObject', {
       Bucket: process.env.AWS_S3_BUCKET,
