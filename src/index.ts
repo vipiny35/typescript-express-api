@@ -42,9 +42,11 @@ import { S3Client } from "./services/aws-s3-client";
 
   //Common Upload
   app.get('/api/get-signed-url', async (req, res) => {
+    const { fileName } = req.body;
 
     const s3Client = new S3Client()
-    const uploadPromise = await s3Client.getUploadSignedUrl('MicrosoftTeams-image.png');
+    
+    const uploadPromise = await s3Client.getUploadSignedUrl(fileName);
     res.send({
       success: true,
       data: uploadPromise

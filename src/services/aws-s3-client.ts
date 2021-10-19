@@ -29,19 +29,26 @@ export class S3Client {
     }).promise();
   }
 
-  getLocation(): string {
-    const yearMonthFolder = DateTime.now().toFormat('YYYY/MM')
-    return `uploads/${yearMonthFolder}`;
+  getLocation(folder = 'uploads'): string {
+    const monthYear = DateTime.now().toFormat('yyyy/MM');
+    return `${folder}/${monthYear}`;
   }
 
   async getUploadSignedUrl(fileName: string) {
-    const fileNamePrefix = nanoid(12);
+
+    if (!fileName) return 'No file name provided';
+
     const extension = extractFileExtention(fileName);
-    return await this.client.getSignedUrlPromise('putObject', {
+    const fileNamePrefix = nanoid(12);
+
+    const key = `${this.getLocation()}/${fileNamePrefix}.${extension}`;
+
+    return this.client.getSignedUrlPromise('putObject', {
       Bucket: process.env.AWS_S3_BUCKET,
-      Key: `${this.getLocation()}/${fileNamePrefix}.${extension}`,
+      Key: key,
       ACL: 'public-read'
     })
+
   }
 
 }
