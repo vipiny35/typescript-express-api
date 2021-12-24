@@ -34,14 +34,14 @@ export class S3Client {
     return `${folder}/${monthYear}`;
   }
 
-  async getUploadSignedUrl(fileName: string) {
+  async getUploadSignedUrl(fileName: string, folderName?: string) {
 
     if (!fileName) return 'No file name provided';
 
     const extension = extractFileExtention(fileName);
     const fileNamePrefix = nanoid(12);
 
-    const key = `${this.getLocation()}/${fileNamePrefix}.${extension}`;
+    const key = `${this.getLocation(folderName)}/${fileNamePrefix}.${extension}`;
 
     return this.client.getSignedUrlPromise('putObject', {
       Bucket: process.env.AWS_S3_BUCKET,

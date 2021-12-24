@@ -13,7 +13,7 @@ export const verifyJwtToken = async (req: Request) => {
     const token = authorization.split(" ")[1];
 
     try {
-      const payload: any = await verify(token, process.env.ACCESS_TOKEN_SECRET!);
+      const payload: any = verify(token, process.env.ACCESS_TOKEN_SECRET!);
       const user = await UserModel.findById(payload.userId).exec();
       if (user) {
         return { user: user };
