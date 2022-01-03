@@ -1,5 +1,5 @@
-import { ObjectId } from "mongodb";
 import { getModelForClass, prop } from "@typegoose/typegoose";
+import { ObjectId } from "mongoose";
 
 export enum UserRole {
   NORMAL = "NORMAL",

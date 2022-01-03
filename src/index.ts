@@ -6,6 +6,7 @@ import { errorHandler } from "./utils/error.middleware";
 import { mongoose } from "@typegoose/typegoose";
 import { Routes } from "./routes"
 import { S3Client } from "./services/aws-s3-client";
+import { ConnectOptions } from "mongoose";
 
 (async () => {
 
@@ -18,15 +19,12 @@ import { S3Client } from "./services/aws-s3-client";
 
   /* Mongoose database connection */
   mongoose.set('debug', false);
-  await mongoose.connect(process.env.DB_CONNECTION_STRING!, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true
-  }).then(() => {
+  const connectOptions: ConnectOptions = {}
+  await mongoose.connect(process.env.DB_CONNECTION_STRING!, connectOptions).then(() => {
     console.log("Connected to database!");
   }).catch(() => {
-    console.log("Connection failed!");
+    console.log("Database connection failed!");
+    process.exit();
   });
   /* Mongoose database connection END*/
 
@@ -45,7 +43,7 @@ import { S3Client } from "./services/aws-s3-client";
     const { fileName } = req.body;
 
     const s3Client = new S3Client()
-    
+
     const uploadPromise = await s3Client.getUploadSignedUrl(fileName);
     res.send({
       success: true,
