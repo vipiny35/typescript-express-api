@@ -29,7 +29,7 @@ import { ConnectOptions } from "mongoose";
   /* Mongoose database connection END*/
 
 
-  app.use('/status', (req, res, next) => {
+  app.use('/', (req, res, next) => {
     res.send({ message: 'Success' });
   });
 
