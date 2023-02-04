@@ -24,7 +24,7 @@ import { ConnectOptions } from "mongoose";
     console.log("Connected to database!");
   }).catch(() => {
     console.log("Database connection failed!");
-    process.exit();
+    // process.exit();
   });
   /* Mongoose database connection END*/
 
